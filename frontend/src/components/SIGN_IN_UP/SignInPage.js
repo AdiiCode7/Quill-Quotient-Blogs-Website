@@ -64,7 +64,8 @@ export default function SignInPage() {
           <div className=" mx-auto w-96 my-24">
 
             <input
-              onChange={(event) => {
+              onChange={(event) => 
+              {
                 SetUsername(event.target.value);
               }}
               type="text"
