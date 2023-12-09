@@ -1,7 +1,7 @@
 // Navbar.jsx
 
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -19,7 +19,7 @@ const NavBar = () => {
         <a href="/Create" className="text-black hover:text-gray-300">
           Create New Blogs
         </a>
-        <a href="/services" className="text-black hover:text-gray-300">
+        <a href="/AllBlogs" className="text-black hover:text-gray-300">
           All Blogs
         </a>
         <a href="/contact" className="text-black hover:text-gray-300">

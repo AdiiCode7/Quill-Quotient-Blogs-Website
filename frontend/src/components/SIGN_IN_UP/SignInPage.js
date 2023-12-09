@@ -24,20 +24,12 @@ export default function SignInPage() {
       .then((res) => {
         const { message, Logged } = res.data;
         if (res.status === 200) {
-          console.log("Data Submitted");
-          // console.log(res.data);
-           
+          console.log("Data Submitted");   
           navigate("Layout");
           userContext.SetUserLogged(Logged)
           console.log(Logged)
-         
-          // You can perform additional actions here, such as updating the UI or redirecting the user.
         }
-        // else if (res.status === 401) {
-        //   alert("Invalid credentials");
-        //   console.log("Invalid credentials");
-        //   // You might want to handle invalid credentials differently, such as showing an error message.
-        // }
+  
         else {
           alert("Invalid credentials");
           console.log("Internal Server Error");

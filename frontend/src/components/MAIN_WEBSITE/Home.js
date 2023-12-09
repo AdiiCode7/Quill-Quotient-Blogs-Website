@@ -1,48 +1,59 @@
-import React, { useState, useEffect } from "react";
-import Layout from "./Layout";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import Layout from './Layout';
+import { Link } from 'react-router-dom';
 
+function FrontPage() {
+  const [blogs, setBlogs] = useState([]);
+  const [error, setError] = useState(null);
 
-export default function Home() {
- const [Response, setResponse ]= useState("");
- const [blogData, setBlogData] = useState({
-  title: '',
-  snippets: '',
-  body: ''
-});
-  // axios.get('http://localhost:5000/Home')
-  // .then(response => {
-  //   setResponse(response.data)
-  //   console.log(response.data);
-
-  // })
-  // .catch(error => {
-  //   // Handle errors here
-  //   console.error('Error:', error);
-  // });
   useEffect(() => {
-    // Replace the URL with your server endpoint for fetching the blog data
-    fetch('http://localhost:5000/Home') 
-      .then(response => response.json())
-      .then(data => {
-        setBlogData(data); // Assuming the server sends the blog data as JSON
-      })
-      .catch(error => console.error('Error fetching blog data:', error));
-  }, []); 
-//   const loggedUsername = location.state && location.state.loggedUsername;
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:5000/Home');
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        const result = await response.json();
+        if (response.ok) {
+          setBlogs(result.blogs);
+        } else {
+          setError(result.error);
+        }
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <Layout>
-    <>     
-    <div className="App">
-    <h1>{Response}</h1>
-      
-    <h1>Welcome to Home Page</h1>
-      <p>User: {blogData.username || 'Guest'}</p>
-      <p>Blog Title: {blogData.title || 'No Title'}</p>
-      <p>Blog Snippets: {blogData.snippets || 'No Snippets'}</p>
-      <p>Blog Body: {blogData.body || 'No Body'}</p>
+
+      <div>
+      {error && <p>Error: {error}</p>}
+      {blogs.length > 0 ? (
+        blogs.map((blog) => 
+        (
+          <div key={blog._id} className='flex'>
+          <div className='w-2 bg-orange-500 h-20 ml-8 mt-12'>
+          </div>
+          <div className='mt-12 ml-4'>
+          <Link to={`/HomeDetail/${blog._id}`}>
+          <h2 className='text-xl font-bold'>{blog.title}</h2>
+          <p>{blog.snippets}</p>
+            <p>Open the Blog to read .......</p></Link>   
+            </div>    
+          </div>
+        ))
+      ) : (
+        <p>No blogs found <Link to="/Create"> <span className='text-blue-900 text-lg'>Create a New Blog</span> </Link></p>
+        
+      )}
     </div>
-    </>
     </Layout>
   );
 }
+
+export default FrontPage;
+
+
