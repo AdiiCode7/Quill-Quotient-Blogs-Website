@@ -6,7 +6,7 @@ const router = express.Router();
 const blogs = require("./BlogsData");
 console.log("Hey Server!!!!");
 const dbURI =
-  "mongodb+srv://buniversity4:Adeel044@shariqadeel.6dniwds.mongodb.net/BlogsData?retryWrites=true&w=majority"; // Replace with your MongoDB URI
+  
 const app = express();
 mongoose
   .connect(dbURI)
