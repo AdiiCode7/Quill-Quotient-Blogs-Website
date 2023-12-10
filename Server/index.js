@@ -181,7 +181,6 @@ app.get('/UserBlogDetail/:id', async (req, res) => {
   }
 });
 
-
 app.delete('/UserBlogDetail/:id', async (req, res) => {
   try {
     // const blogId = req.params.id;
@@ -200,24 +199,19 @@ else{
     res.status(500).send({ error: 'Server error' });
   }
 });
-app.put('/UserBlogDetail/:id',async(req,res)=>{
-  const blog = await blogs.findById(req.params.id);
-  const updateData=req.body
-  collection.updateOne(
-    { _id: blog },
-    { $set: updateData },
-    (updateErr, result) => {
-      if (updateErr) {
-        console.error('Error occurred while updating data', updateErr);
-        res.status(500).send('Error occurred while updating data');
-        return;
-      }
-      console.log('Data updated successfully');
-      res.status(200).send('Data updated successfully');
-    }
-  );
-});
 
+app.put('/Update/:id', async (req, res) => {
+  try {
+    const blog = await blogs.findById(req.params.id);
+    console.log("update wla")
+    const updatedData = req.body; 
+    const updatedItem = await Item.findByIdAndUpdate(blog, updatedData, { new: true });
+
+    res.json(updatedItem);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // pp.delete("/DeleteBlog", async (req, res) => {
 //   try {

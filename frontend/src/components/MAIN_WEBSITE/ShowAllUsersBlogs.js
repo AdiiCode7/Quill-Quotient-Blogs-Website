@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import { Link,} from "react-router-dom";
+import { Link } from "react-router-dom";
 function ShowAllUsersBlogs() {
   const [blogs, setBlogs] = useState([]);
 
@@ -20,10 +20,6 @@ function ShowAllUsersBlogs() {
     fetchData();
   }, []);
 
-
-
-  
-
   return (
     <Layout>
       <div>
@@ -35,11 +31,12 @@ function ShowAllUsersBlogs() {
                 <h2 className="text-xl font-bold">{blog.title}</h2>
                 <p>{blog.snippets}</p>
                 <p>{blog.body}</p>
-            <button
-               className="absolute top-8 right-0 mt-2 mr-24 p-2 text-white rounded-full"
-             >
-               🗑️
-             </button>
+                <button className="absolute top-8 right-0 mt-2 mr-24 p-2 text-white rounded-full bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
+                  <span className="flex items-center">
+                    Edit this blog
+                   
+                  </span>
+                </button>
               </Link>
             </div>
           </div>
